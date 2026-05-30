@@ -1,0 +1,805 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+  }
+  
+  body{
+    background:#efb4c9;
+    font-family:'Aileron';
+    overflow-x:hidden;
+    color:#111;
+    overflow: hidden;
+    height: 100vh;
+    
+  }
+  
+  /* ================= HEADER ================= */
+  
+  .header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 40px 10px;
+    position: relative;
+  }
+  
+  .logo-area{
+    display:flex;
+    flex-direction:column;
+    gap:30px;
+  }
+
+  .logo-area-btn{
+    background:none;
+    border:none;
+    cursor:pointer;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    align-items:flex-start;
+  }
+  
+  .logo{
+    width:260px;
+  }
+
+  .d-logo{
+    display:flex;
+    align-items:center;
+  }
+  
+  .d-logo img{
+    width:200px;
+    opacity:0.9;
+    filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+  }
+  
+ .line{
+  position:absolute;
+
+  left:0;        /* 🔥 starts at screen left */
+  top:160px;      /* adjust depending on logo height */
+
+  width:35%;   /* full screen width */
+  height:2px;
+
+  background:black;
+
+  z-index:1;     /* behind logo if needed */
+}
+  
+  .triangle-btn{
+    background:none;
+    border:none;
+    cursor:pointer;
+  }
+  
+  .triangle-btn img{
+    width:90px;
+  }
+
+  /* ================= NAVBAR ================= */
+  
+  .navbar{
+    width:100%;
+    margin-top: 12px;
+    background: rgba(58, 57, 57, 0.486);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    height:30px;
+  
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+  
+    padding: 0 150px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.3);
+  }
+  
+  .categories{
+    display:none; /* hidden by default */
+    justify-content: flex-end;
+    gap:50px;
+    
+    padding-right:280px;
+    margin-top:15px;
+  }
+  
+  .categories.show{
+    display:flex;
+  }
+  
+  
+  .label{
+    border:none;
+    background:none;
+  
+    padding:10px 20px;
+    border-radius:20px;
+  
+    transition:0.3s;
+  }
+  
+  .label:hover{
+    background:rgba(255,255,255,0.25);
+    color:white;
+  }
+  
+  .label.active{
+    background:#fabddc;
+    color:black;
+  
+    box-shadow:0 0 15px rgba(250,189,220,0.6);
+  }
+  
+  .nav-pages{
+    display:flex;
+    gap:25px;
+  }
+  
+  .nav-btn{
+    border:none;
+    background:none;
+    color:black;
+    font-size:1.3rem;
+    cursor:pointer;
+    font-family:'Aileron';
+  }
+  
+  .nav-btn.active{
+    color:#ff0080;
+  }
+  
+/* ================= PAGE STATE SYSTEM ================= */
+
+.page{
+    display:none;
+    padding:40px;
+  }
+  
+  /* active page */
+.active-page{
+    display:block;
+  }
+  
+  
+  /* ================= HOME ================= */
+  
+  #homePage{
+    position:relative;
+    padding:93px;
+  }
+  
+  
+  .home-grid{
+    display:flex;
+    justify-content:center;
+    gap: 250px;
+    align-items:center;
+    margin-top:-70px;
+  }
+  
+  .home-card{
+    width:700px;
+    height:400px;
+  
+    background:#ecececc2;
+  
+    border-radius:4px;
+  
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  
+    
+  
+    box-shadow:0 0 25px rgba(255,255,255,0.7);
+  }
+  
+  .card-content{
+    font-size:3rem;
+  }
+  
+  .arrow{
+    border:none;
+    background:none;
+    font-size:3rem;
+    cursor:pointer;
+  }
+  
+ /* ================= STAGE LIGHTS ================= */
+
+.lights-row{
+    margin-top:100px;
+  
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  
+    position:relative;
+  }
+  
+  .light-wrapper{
+    position:relative;
+  
+    width:1500px;
+    height:100px;
+  
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+  }
+
+  .light-wrapper:last-child{
+    left:-55px;
+}
+  
+  /* LIGHT IMAGE */
+  
+  .stage-light{
+    width:140px;
+    z-index:3;
+    position: relative;
+    top: 40px;
+  }
+  
+  /* MAIN LIGHT BEAM */
+  
+  .light-beam{
+    position:absolute;
+  
+    top:-150px;
+    left:-90px;
+  
+    width:900px;
+    height:200px;
+  
+    background: linear-gradient(
+    to top,
+    rgba(255,255,255,0.35) 0%,
+    rgba(255,255,255,0.15) 50%,
+    rgba(255,255,255,0.05) 70%,
+    transparent 100%
+  );
+  
+    clip-path:polygon(
+      44% 100%,
+      54% 100%,
+      104% 10%,
+      0% 0%
+    );
+  
+    filter:blur(12px);
+    opacity: .9;
+  
+    z-index:1;
+  
+    pointer-events:none;
+  }
+  
+  /* EXTRA GLOW */
+  
+  .light-glow{
+    position:absolute;
+  
+    top:-500px;
+  
+    width:550px;
+    height:250px;
+  
+    background:radial-gradient(
+      rgba(255,255,255,0.35),
+      rgba(255,255,255,1),
+      transparent
+    );
+  
+    filter:blur(50px);
+  
+    z-index:0;
+  
+    pointer-events:none;
+  }
+
+  .light-dark{
+    position:absolute;
+
+    top:-950px;
+    left:-2000px;
+
+    width:4000px;
+    height:1000px;
+
+    background:linear-gradient(
+        to top,
+      rgba(0,0,0,0.9),
+      rgba(0,0,0,0.6),
+      rgba(0,0,0,0.2)
+      transparent
+    );
+
+    z-index:0;
+
+    filter:blur(30px);
+
+    pointer-events:none;
+}
+  
+  /* HOME CARDS ABOVE LIGHT */
+  
+  .home-card{
+    position:relative;
+    z-index:5;
+  }
+  
+ /* CENTER PARAGRAPH */
+
+.center-text{
+  min-width: 200px;
+    text-align:center;
+    font-size:1.2rem;
+    line-height:1.4;
+    color:white;
+  }
+  
+  /* ================= PORTFOLIO ================= */
+  
+  #portfolioPage{
+    padding:10px 40px 40px 40px;
+  }
+  
+  
+  .portfolio-layout{
+    display:flex;
+    gap:50px;
+    align-items: flex-start;
+  }
+  
+  .main-preview{
+    flex:1;
+    position: relative;
+    margin-top: -40px;
+  }
+
+  
+  .video-preview{
+    width:996px;
+    height:560px;
+    position: relative;
+  
+    background:#ececec;
+   
+  
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    overflow: hidden;
+  }
+
+  /* TITLE OVER VIDEO */
+  .video-title{
+    margin-bottom:5px;
+  
+    text-align:center;
+    font-size:2rem;
+    font-weight:bold;
+  
+    color:black; /* or white depending on background */
+  
+    opacity:0;
+    transition:0.3s;
+  }
+  
+  /* show only when active */
+  .video-title.show{
+    opacity:1;
+  }
+
+  .main-video{
+    max-width:100%;
+    max-height:100%;
+
+    width: auto;
+    height: auto;
+  
+    object-fit:contain;
+    background: black; /* keeps it neat inside box */
+  }
+  
+  .video-list{
+    width:80%;
+  
+    border-left:3px solid black;
+  
+    padding-left:30px;
+  
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:20px;
+  }
+  
+  .video-card{
+    width:100%;
+    height:140px;
+  
+    background:#9b9b9b;
+  
+    overflow: hidden;
+
+
+    cursor: pointer;
+    border: 3px solid transparent #ff0080;
+  }
+  
+  .video-card video{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
+
+  .active-video{
+    background:#ececec;
+  
+    display:flex;
+    justify-content:center;
+    align-items:center;
+  
+    font-size:3rem;
+
+    border:3px solid #ff0080; /* pink highlight */
+    box-shadow:0 0 15px rgba(255,0,128,0.5);
+  }
+
+  .gallery{
+    display:none;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .gallery.active-gallery{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:30px;
+    align-items:flex-start;
+  }
+  
+  .art-img{
+    width:100%;
+    max-width:500px;   /* adjust size here */
+    height:auto;
+    object-fit:contain;
+    display:block;
+  }
+
+  .art-item{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content: flex-start;
+    text-align: center;
+    margin:5px;
+
+  }
+  
+  .art-title{
+    width:100%;
+    text-align:center;
+    font-weight:bold;
+    margin-bottom:8px;
+  }
+  
+  /* ================= ABOUT ================= */
+  
+  #aboutPage{
+    padding:80px;
+    position: relative;
+  }
+
+  .about-logo{
+    position:absolute;
+    bottom:30px;
+    right:30px;
+  
+    width:200px;   /* adjust size */
+  }
+  
+  .about-logo img{
+    width:100%;
+    height:auto;
+    display:block;
+  }
+  
+  .about-layout{
+    display:flex;
+    align-items:flex-start;
+    justify-content: flex-end;
+    gap: 180px;
+
+    transform:translateX(-350px);
+  }
+  
+  .profile-box{
+    width:350px;
+    height:450px;
+  flex-shrink: 0;
+    background:#e6b1c4;
+  
+    border:1px solid black;
+  
+    overflow:hidden;
+  }
+  
+  .profile-box img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
+  
+  .about-content{
+    min-height:450px;
+  
+    display:flex;
+    flex-direction:column;
+  }
+  
+  .about-content p{
+   
+    max-width:700px;
+
+    font-size:1.2rem;
+    line-height:1.2;
+  
+    margin-bottom:175px;
+    text-align: left;
+  }
+  
+  .socials{
+    display:flex;
+    gap:20px;
+  
+    margin-bottom:10px;
+  }
+  
+  .socials a{
+    color:black;
+    font-size:1.8rem;
+  
+    transition:0.3s;
+  }
+  
+  .socials a:hover{
+    color:#ff0080;
+  }
+  
+  .bottom-row{
+    display:flex;
+    align-items:center;
+
+    width:100%;
+    max-width:700px;
+  }
+  
+  .contact-btn{
+    width:150px;
+    min-width: 150px;
+    flex-shrink: 0;
+    height:50px;
+    margin-left: auto;
+  
+    border:none;
+    border-radius:7px;
+  
+    background:#ececec;
+  
+    font-family:'Aileron';
+    font-size:1.5rem;
+  
+    cursor:pointer;
+  }
+
+  /* ================= CONTACT POPUP ================= */
+
+.contact-popup{
+    position:fixed;
+    inset:0;
+  
+    background:rgba(255,255,255,0.05);
+    backdrop-filter: blur(2px);
+  
+    display:none;
+  
+    justify-content:center;
+    align-items:center;
+  
+    z-index:999;
+    pointer-events: auto;
+  }
+  
+  .contact-popup:not(.show){
+    pointer-events:none;
+  }
+
+  .contact-popup.show{
+    display:flex;
+  }
+  
+  .contact-box{
+    width:500px;
+  
+    background:white;
+  
+    padding:40px;
+  
+    border-radius:20px;
+  
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+  
+    position:relative;
+  }
+  
+  .contact-box form{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+  }
+  
+  .contact-box input,
+  .contact-box textarea{
+    width:100%;
+  
+    padding:15px;
+  
+    border:1px solid #ccc;
+  
+    border-radius:10px;
+  
+    font-size:1rem;
+  }
+  
+  .contact-box textarea{
+    height:140px;
+    resize:none;
+  }
+  
+  .send-btn{
+    border:none;
+  
+    background:#efb4c9;
+  
+    padding:15px;
+  
+    border-radius:10px;
+  
+    cursor:pointer;
+  
+    font-size:1rem;
+  }
+
+  .send-btn:disabled{
+    opacity:0.6;
+    cursor:not-allowed;
+  }
+  
+  .close-popup{
+    position:absolute;
+  
+    top:15px;
+    right:20px;
+  
+    font-size:2rem;
+  
+    cursor:pointer;
+  }
+
+  .success-message{
+    opacity:0;
+    transform:translateY(10px);
+    color:green;
+    font-size:1rem;
+    text-align:center;
+    margin-top:10px;
+  
+    transition:all 0.4s ease;
+  }
+  
+  .success-message.show{
+    opacity:1;
+    transform:translateY(0);
+  }
+  /* ================= RESPONSIVE ================= */
+  
+  @media(max-width:1000px){
+  
+    .home-grid{
+      flex-direction:column;
+      gap:50px;
+    }
+  
+    .portfolio-layout{
+      flex-direction:column;
+    }
+  
+    .video-list{
+      width:100%;
+      border-left:none;
+      border-top:3px solid black;
+  
+      padding-top:30px;
+      padding-left:0;
+  
+      flex-direction:row;
+    }
+  
+    .video-card{
+      flex:1;
+    }
+  
+    .about-layout{
+      flex-direction:column;
+    }
+  
+    .line{
+      width:300px;
+    }
+  
+  }
+  
+  @media(max-width:700px){
+  }
+
+  .card-content{
+    width:100%;
+    height:100%;
+    position:relative;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+  }
+  
+  /* each slide takes full container */
+  .slide{
+    position:absolute;
+    width:100%;
+    height:100%;
+    display:none;
+    justify-content:center;
+    align-items:center;
+  }
+  
+  /* only active one shows */
+  .slide.active{
+    display:flex;
+  }
+  
+  /* media keeps original ratio */
+  .slide img,
+  .slide video{
+    max-width:100%;
+    max-height:100%;
+    width:auto;
+    height:auto;
+    object-fit:contain;
+  }
+
+  .site-footer{
+    position:fixed;
+    bottom:10px;
+    left:50%;
+    transform:translateX(-50%);
+  
+    font-size:0.9rem;
+    opacity:0.7;
+  }
+
+  
+
+  img{
+    pointer-events:none;
+    user-select:none;
+  }
