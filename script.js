@@ -1,3 +1,4 @@
+const homeBtn = document.getElementById("homeBtn");
 const portfolioBtn = document.getElementById("portfolioBtn");
 const aboutBtn = document.getElementById("aboutBtn");
 
@@ -6,7 +7,6 @@ const aboutPage = document.getElementById("aboutPage");
 const homePage = document.getElementById("homePage");
 
 const labels = document.querySelectorAll(".label");
-const categoryTitle = document.getElementById("categoryTitle");
 
 const homeLogoBtn = document.getElementById("homeLogoBtn");
 
@@ -21,12 +21,8 @@ const contactPopup = document.getElementById("contactPopup");
 const sendBtn = document.getElementById("sendBtn");
 
 const mainVideo = document.getElementById("mainVideo");
-
+const descriptionHeading = document.getElementById("descriptionHeading");
 const videoCards = document.querySelectorAll(".video-card");
-
-/* ================= CATEGORY DATA ================= */
-
-
 
 /* ================= SAFE PAGE SYSTEM ================= */
 
@@ -36,6 +32,7 @@ function showPage(page) {
   portfolioPage.classList.remove("active-page");
   aboutPage.classList.remove("active-page");
 
+  homeBtn.classList.remove("active");
   portfolioBtn.classList.remove("active");
   aboutBtn.classList.remove("active");
 
@@ -43,6 +40,7 @@ function showPage(page) {
 
   if (page === 0) {
     homePage.classList.add("active-page");
+    homeBtn.classList.add("active");
     categoryBar.classList.add("hidden");
   }
 
@@ -87,12 +85,9 @@ const galleries = {
 });
 /* ================= NAV BUTTONS ================= */
 
+homeBtn.addEventListener("click", () => showPage(0));
 portfolioBtn.addEventListener("click", () => showPage(1));
 aboutBtn.addEventListener("click", () => showPage(2));
-
-if (homeLogoBtn) {
-  homeLogoBtn.addEventListener("click", () => showPage(0));
-}
 
 
 
@@ -170,33 +165,50 @@ if (contactBtn && contactPopup) {
   }
 
 
-
+/* ================= videos ================= */
   const videoTitle = document.getElementById("videoTitle");
+  const videoDescription = document.getElementById("videoDescription");
 
-  if (mainVideo) {
+  function loadVideo(card) {
+
+    const videoSrc = card.dataset.video;
+    const title = card.dataset.title;
+    const heading = card.dataset.heading;
+    const description = card.dataset.description;
+
+    mainVideo.src = videoSrc;
+    mainVideo.load();
+
+    videoTitle.textContent = title;
+    videoTitle.classList.add("show");
+    descriptionHeading.textContent = heading;
+    videoDescription.textContent = description;
+
+    videoCards.forEach(v => v.classList.remove("active-video"));
+    card.classList.add("active-video");
+}
+
+
+if (mainVideo) {
+
     videoCards.forEach(card => {
-      card.addEventListener("click", () => {
-  
-        const videoSrc = card.dataset.video;
-        const title = card.dataset.title;
-  
-        mainVideo.src = videoSrc;
-        mainVideo.load();
-        mainVideo.play();
-  
-        // 🔥 THIS IS THE NEW PART (title update)
-        videoTitle.textContent = title;
-        videoTitle.classList.add("show");
-  
-        videoCards.forEach(v => v.classList.remove("active-video"));
-        card.classList.add("active-video");
-  
-      });
+
+        card.addEventListener("click", () => {
+
+            loadVideo(card);
+            mainVideo.play();
+
+        });
+
     });
-  }
-  if (mainVideo.src.includes("mv_4.mp4")) {
-    mainVideo.muted = true;
-  }
+
+
+    if (videoCards.length > 0) {
+        loadVideo(videoCards[0]);
+    }
+
+}
+  
 
   function setupCarousel(card) {
   const slides = card.querySelectorAll(".slide");
@@ -224,3 +236,39 @@ if (contactBtn && contactPopup) {
 /* apply to both cards */
 document.querySelectorAll(".home-card").forEach(setupCarousel);
  
+/* =================Illustrations ================= */
+const artItems = document.querySelectorAll(".art-item");
+
+const artTitle = document.getElementById("artTitle");
+const artHeading = document.getElementById("artHeading");
+const artDescription = document.getElementById("artDescription");
+
+const artInfoPanel = document.querySelector(".art-info-panel");
+
+artItems.forEach(item => {
+
+    item.addEventListener("mouseenter", () => {
+
+        artTitle.textContent = item.dataset.title;
+        artHeading.textContent = item.dataset.heading;
+        artDescription.textContent = item.dataset.description;
+
+        artInfoPanel.classList.add("show");
+
+    });
+
+});
+
+const illustrationGallery = document.getElementById("illustrationGallery");
+
+illustrationGallery.addEventListener("mouseleave", () => {
+
+    artInfoPanel.classList.remove("show");
+
+});
+
+const conceptGallery = document.getElementById("conceptGallery");
+
+conceptGallery.addEventListener("mouseleave", () => {
+    artInfoPanel.classList.remove("show");
+});
